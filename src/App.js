@@ -1,25 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
 
-function App() {
+const App = () => {
+  // Initialize dictionary state
+  const [dictionary] = useState([
+    { word: "React", meaning: "A JavaScript library for building user interfaces." },
+    { word: "Component", meaning: "A reusable building block in React." },
+    { word: "State", meaning: "An object that stores data for a component." }
+  ]);
+
+  // State for current search term and result message
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResult, setSearchResult] = useState('');
+
+  // Function to handle search
+  const handleSearch = () => {
+    // Convert search term to lowercase for case-insensitive search
+    const searchTermLowerCase = searchTerm.toLowerCase();
+    // Find the word in the dictionary
+    const foundWord = dictionary.find(entry => entry.word.toLowerCase() === searchTermLowerCase);
+
+    if (foundWord) {
+      setSearchResult(foundWord.meaning);
+    } else {
+      setSearchResult('Word not found in the dictionary.');
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="x-dictionary">
+      <h1>XDictionary</h1>
+      <div className="search-container">
+        <input 
+          type="text" 
+          placeholder="Enter a word..." 
+          value={searchTerm} 
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <button onClick={handleSearch}>Search</button>
+      </div>
+      <div className="result">{searchResult}</div>
     </div>
   );
-}
+};
 
 export default App;
