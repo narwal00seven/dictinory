@@ -37,9 +37,11 @@ const App = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <button onClick={handleSearch}>Search</button>
-        <h3>Definition:</h3>
       </div>
-      <div className="result">{searchResult}</div>
+      <div className="result">
+        <h3>Definition:</h3>
+        <p>{searchResult}</p>
+      </div>
     </div>
   );
 };
